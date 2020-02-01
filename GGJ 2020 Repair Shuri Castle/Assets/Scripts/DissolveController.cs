@@ -13,6 +13,7 @@ public class DissolveController : MonoBehaviour
     void Start()
     {
         material = GetComponent<Renderer>().material;
+        dissolveSpeed = 1;
     }
 
     // Update is called once per frame
@@ -22,12 +23,20 @@ public class DissolveController : MonoBehaviour
             isDissolving = true;
         }
 
-        if (isDissolving && dissolveAmount > 0) {
-            dissolveAmount -= Time.deltaTime * dissolveSpeed;
+        if (isDissolving) {
+            if (dissolveAmount > 0) { 
+                dissolveAmount -= Time.deltaTime * dissolveSpeed;
+            } else {
+                isDissolving = false;
+            }
         }
 
-        if (!isDissolving && dissolveAmount < 1) {
-            dissolveAmount += Time.deltaTime * dissolveSpeed;
+        if (!isDissolving) {
+            if (dissolveAmount < 1) {
+                dissolveAmount += Time.deltaTime * dissolveSpeed;
+            } else {
+                isDissolving = true;
+            }
         }
 
         material.SetFloat("_DissolveAmount", dissolveAmount);
