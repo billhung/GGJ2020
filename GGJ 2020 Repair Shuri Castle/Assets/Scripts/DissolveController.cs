@@ -6,7 +6,7 @@ public class DissolveController : MonoBehaviour
 {
     public bool isDissolving;
     public float dissolveAmount;
-    public float dissolveSpeed;
+    public float dissolveSpeed=1;
     private Material material;
 
     // Start is called before the first frame update
