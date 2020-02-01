@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\DisappearIn5sec.cs" />
+    <Compile Include="Assets\Scripts\DisplayIfClose.cs" />
     <Compile Include="Assets\Scripts\DissolveController.cs" />
     <Compile Include="Assets\Scripts\RandomizerController.cs" />
     <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
