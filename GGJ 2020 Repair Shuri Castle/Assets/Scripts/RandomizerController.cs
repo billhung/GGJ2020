@@ -23,7 +23,7 @@ public class RandomizerController : MonoBehaviour
         yield return new WaitForSeconds(5);
 
         foreach (var obj in GetComponentsInChildren(typeof(Renderer))) {
-            obj.transform.localPosition = new Vector3(Random.Range(0, 20), 2, Random.Range(0, 20));
+            obj.transform.localPosition = new Vector3(Random.Range(0, 40), 2, Random.Range(0, 20));
         }
 
         //After we have waited 5 seconds print the time again.
