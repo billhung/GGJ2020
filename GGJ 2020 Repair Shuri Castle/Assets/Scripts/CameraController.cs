@@ -6,7 +6,7 @@ public class CameraController : MonoBehaviour
 {
     public Camera m_Camera;
     public Vector2 m_LastAngles = new Vector2(0, 0);
-    public float m_MoveSpeed = 0.05f;
+    public float m_MoveSpeed = 0.4f;
     public float m_RotateSpeed = 5.0f;
 
     // Start is called before the first frame update
