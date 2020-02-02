@@ -27,7 +27,7 @@ public class PickupController : MonoBehaviour
         var cameraPosition = m_CameraController.m_Camera.transform.position;
         if (m_HoldingObject != null)
         {
-            m_HoldingObject.transform.position = new Vector3(cameraPosition.x, cameraPosition.y - 10, cameraPosition.z);
+            m_HoldingObject.transform.position = new Vector3(cameraPosition.x, cameraPosition.y - 1, cameraPosition.z);
         }
 
         if (Input.GetKey(KeyCode.P))

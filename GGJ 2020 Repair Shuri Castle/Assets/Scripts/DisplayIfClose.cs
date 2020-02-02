@@ -21,7 +21,7 @@ public class DisplayIfClose : MonoBehaviour
             else {
                 obj.transform.localPosition = new Vector3(obj.transform.localPosition.x, obj.transform.localPosition.y, 1000);
             }
-            Debug.Log("dist="+dist+"; Camera<x,y,z>="+ m_MainCamera.transform.position.x+ m_MainCamera.transform.position.y + m_MainCamera.transform.position.z);
+            //Debug.Log("dist="+dist+"; Camera<x,y,z>="+ m_MainCamera.transform.position.x+ m_MainCamera.transform.position.y + m_MainCamera.transform.position.z);
         }
     }
 }
