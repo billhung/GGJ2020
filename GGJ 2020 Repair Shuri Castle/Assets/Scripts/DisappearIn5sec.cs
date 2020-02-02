@@ -13,7 +13,7 @@ public class DisappearIn5sec : MonoBehaviour
         yield return new WaitForSeconds(10);
  
         foreach (var obj in GetComponentsInChildren(typeof(Renderer))) {
-            obj.transform.localPosition = new Vector3(obj.transform.localPosition.x, -1000, obj.transform.localPosition.z);
+            obj.transform.localPosition = new Vector3(obj.transform.localPosition.x, obj.transform.localPosition.y, -1000);
         }
     }
 }
