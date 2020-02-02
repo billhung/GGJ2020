@@ -7,14 +7,16 @@ public class PickupController : MonoBehaviour
 {
     public Renderer m_HoldingObject = null;
     public CameraController m_CameraController;
+    public GameObject m_CorrectCastle;
 
     private Component[] m_Parts;
-    private float epsilon = 5;
+    private float epsilon = 30;
     // Start is called before the first frame update
     void Start()
     {
         var mainCamera = GameObject.Find("Main Camera");
         m_CameraController = mainCamera.GetComponent<CameraController>();
+        m_CorrectCastle = GameObject.Find("ShuriCastle_Correct");
 
         m_Parts = GetComponentsInChildren(typeof(Renderer));
     }
@@ -38,19 +40,49 @@ public class PickupController : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.R))
         {
-            m_HoldingObject = null;
+            if (m_HoldingObject != null)
+            {
+                releaseHoldingObject();
+            }
         }
     }
 
     private Component pickupObject(Vector3 position)
     {
         Component nearest = m_Parts.OrderBy(obj => dist(position, obj.transform.position)).First();
-        Debug.Log(dist(position, nearest.transform.position));
         return dist(position, nearest.transform.position) < epsilon ? nearest : null;
     }
 
     private float dist(Vector3 p, Vector3 q)
     {
         return p == null || q == null ? float.MaxValue : (p.x - q.x) * (p.x - q.x) + (p.y - q.y) * (p.y - q.y);
+    }
+
+    private void releaseHoldingObject()
+    {
+        var obj = m_HoldingObject;
+        var targetObj = getCorrectObjectByName(obj.name);
+        if (targetObj != null && canAttachObj(obj, targetObj))
+        {
+            obj.transform.position = targetObj.transform.position;
+        }
+        m_HoldingObject = null;
+    }
+
+    private bool canAttachObj(Renderer obj, Renderer targetObj)
+    {
+        return Vector3.Distance(obj.transform.position, targetObj.transform.position) < 30;
+    }
+
+    private Renderer getCorrectObjectByName(string name)
+    {
+        foreach (var o in m_CorrectCastle.GetComponentsInChildren<Renderer>())
+        {
+            if (o.name == name)
+            {
+                return o as Renderer;
+            }
+        }
+        return null;
     }
 }
