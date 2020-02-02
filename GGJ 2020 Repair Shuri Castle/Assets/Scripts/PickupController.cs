@@ -10,7 +10,7 @@ public class PickupController : MonoBehaviour
     public GameObject m_CorrectCastle;
 
     private Component[] m_Parts;
-    private float epsilon = 30;
+    private float epsilon = 15;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,26 +24,23 @@ public class PickupController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(m_HoldingObject == null ? "No object" : "Holding now");
         var cameraPosition = m_CameraController.m_Camera.transform.position;
         if (m_HoldingObject != null)
         {
-            m_HoldingObject.transform.position = new Vector3(cameraPosition.x, cameraPosition.y - 1, cameraPosition.z);
+            m_HoldingObject.transform.position = new Vector3(cameraPosition.x, cameraPosition.y - epsilon, cameraPosition.z);
         }
 
-        if (Input.GetKey(KeyCode.P))
+        if (Input.GetKey(KeyCode.Space))
         {
             if (m_HoldingObject == null)
             {
                 m_HoldingObject = pickupObject(cameraPosition)?.GetComponent<Renderer>();
-                Debug.Log(m_HoldingObject == null);
             }
         }
-        if (Input.GetKey(KeyCode.R))
+        else if (m_HoldingObject != null)
         {
-            if (m_HoldingObject != null)
-            {
-                releaseHoldingObject();
-            }
+            releaseHoldingObject();
         }
     }
 
@@ -71,7 +68,7 @@ public class PickupController : MonoBehaviour
 
     private bool canAttachObj(Renderer obj, Renderer targetObj)
     {
-        return Vector3.Distance(obj.transform.position, targetObj.transform.position) < 30;
+        return Vector3.Distance(obj.transform.position, targetObj.transform.position) < epsilon * 2;
     }
 
     private Renderer getCorrectObjectByName(string name)
