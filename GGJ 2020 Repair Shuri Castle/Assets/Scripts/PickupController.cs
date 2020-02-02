@@ -25,24 +25,34 @@ public class PickupController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(m_HoldingObject == null ? "No object" : "Holding now");
         var cameraPosition = m_CameraController.m_Camera.transform.position;
         if (m_HoldingObject != null)
         {
-            m_HoldingObject.transform.position = new Vector3(cameraPosition.x, cameraPosition.y - m_Epsilon, cameraPosition.z);
+            m_HoldingObject.transform.position = new Vector3(cameraPosition.x, nonzero(cameraPosition.y) , cameraPosition.z + m_Epsilon);
         }
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             if (m_HoldingObject == null)
             {
                 m_HoldingObject = pickupObject(cameraPosition)?.GetComponent<Renderer>();
             }
+            Debug.Log(m_HoldingObject == null ? "No object" : "Holding now");
         }
-        else if (m_HoldingObject != null)
-        {
-            releaseHoldingObject();
+
+        if (Input.GetKeyUp(KeyCode.Space)) {
+            Debug.Log(m_HoldingObject == null ? "No object" : "Holding now");
+            if (m_HoldingObject != null) {
+                releaseHoldingObject();
+                Debug.Log("Object released");
+            }
         }
+    }
+
+
+    private float nonzero(float x)
+    {
+        return x > 0 ? x : 0;
     }
 
     private Component pickupObject(Vector3 position)

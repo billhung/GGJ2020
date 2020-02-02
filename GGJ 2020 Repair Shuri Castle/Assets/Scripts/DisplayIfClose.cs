@@ -18,27 +18,18 @@ public class DisplayIfClose : MonoBehaviour
     {
         foreach (var obj in GetComponentsInChildren(typeof(Renderer))) {
             float dist = Vector3.Distance(m_MainCamera.transform.position, 
-                                    new Vector3(obj.transform.localPosition.x, obj.transform.localPosition.y,                        0));
+                                    new Vector3(obj.transform.localPosition.x, obj.transform.localPosition.y, 0));
 
-            isInPlace = isInPlaceCheck();
-            if (isInPlace) {
-                obj.transform.localPosition = new Vector3(obj.transform.localPosition.x, obj.transform.localPosition.y, 1000);
+            if (dist < 30.0) {
+                //obj.transform.localPosition = new Vector3(obj.transform.localPosition.x, obj.transform.localPosition.y, 0);
+                obj.GetComponent<Renderer>().enabled = true;
             } else {
-                if (dist < 30.0) {
-                    obj.transform.localPosition = new Vector3(obj.transform.localPosition.x, obj.transform.localPosition.y, 0);
-                }
-                else {
-                    obj.transform.localPosition = new Vector3(obj.transform.localPosition.x, obj.transform.localPosition.y, 1000);
-                }
+            //obj.transform.localPosition = new Vector3(obj.transform.localPosition.x, obj.transform.localPosition.y, 1000);
+                obj.GetComponent<Renderer>().enabled = false;
             }
 
             //Debug.Log("dist="+dist+"; Camera<x,y,z>="+ m_MainCamera.transform.position.x+ m_MainCamera.transform.position.y + m_MainCamera.transform.position.z);
         }
     }
 
-    bool isInPlaceCheck() {         
-        //not enough time for implementation (to stop blinking when one piece is in place)
-        //時間のため実装に間に合わなかった
-        return false;
-    }
 }
