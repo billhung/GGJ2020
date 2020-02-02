@@ -8,9 +8,10 @@ public class PickupController : MonoBehaviour
     public Renderer m_HoldingObject = null;
     public CameraController m_CameraController;
     public GameObject m_CorrectCastle;
+    public float m_Epsilon = 15;
+
 
     private Component[] m_Parts;
-    private float epsilon = 15;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +29,7 @@ public class PickupController : MonoBehaviour
         var cameraPosition = m_CameraController.m_Camera.transform.position;
         if (m_HoldingObject != null)
         {
-            m_HoldingObject.transform.position = new Vector3(cameraPosition.x, cameraPosition.y - epsilon, cameraPosition.z);
+            m_HoldingObject.transform.position = new Vector3(cameraPosition.x, cameraPosition.y - m_Epsilon, cameraPosition.z);
         }
 
         if (Input.GetKey(KeyCode.Space))
@@ -47,7 +48,7 @@ public class PickupController : MonoBehaviour
     private Component pickupObject(Vector3 position)
     {
         Component nearest = m_Parts.OrderBy(obj => dist(position, obj.transform.position)).First();
-        return dist(position, nearest.transform.position) < epsilon ? nearest : null;
+        return dist(position, nearest.transform.position) < m_Epsilon ? nearest : null;
     }
 
     private float dist(Vector3 p, Vector3 q)
@@ -68,7 +69,7 @@ public class PickupController : MonoBehaviour
 
     private bool canAttachObj(Renderer obj, Renderer targetObj)
     {
-        return Vector3.Distance(obj.transform.position, targetObj.transform.position) < epsilon * 2;
+        return Vector3.Distance(obj.transform.position + new Vector3(0, obj.bounds.size.y, 0), targetObj.transform.position) < m_Epsilon;
     }
 
     private Renderer getCorrectObjectByName(string name)
