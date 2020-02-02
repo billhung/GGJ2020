@@ -50,6 +50,11 @@ public class CameraController : MonoBehaviour
         }
     }
 
+    private Vector3 move(Vector3 current, Vector3 delta)
+    {
+        return new Vector3(current.x + delta.x, current.y + delta.y, current.z + delta.z);
+    }
+
     private void rotateCamera()
     {
         Vector2 newAngles = new Vector2(Input.GetAxis("Mouse X") * m_RotateSpeed, Input.GetAxis("Mouse Y") * m_RotateSpeed);
